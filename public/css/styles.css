@@ -1,0 +1,40 @@
+.form-spacing{
+	margin-top:50px;
+}
+
+
+.comment{
+	margin-bottom:40px;
+}
+
+.author-name{
+	float:left;	
+	margin-left:15px;
+	padding:0;
+
+}
+
+.author-name>h4{
+	margin:0;
+}
+
+.author-name>p{
+	font-size:12px;
+	font-family:italic;
+}
+
+
+.author-image{
+	height: 50px;
+	width:50px;
+	border-radius: 50%;
+	float:left;
+}
+
+.comment-content{
+	clear:both;
+	font-size:20px;
+	margin-left:65px;
+	font-family:italic;
+	line-height:1.3em;
+}
