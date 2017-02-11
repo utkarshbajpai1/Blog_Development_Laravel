@@ -18,7 +18,7 @@
 
 
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-8 offset-md-2">
 			
 			<h2><span class="glyphicon glyphicon-comment"></span>Comments:</h2>
 
@@ -45,7 +45,7 @@
 	</div>
 	
 		<div class="row">
-			<div id="comment-form" class="col-md-8 col-md-offset-2 form-spacing">
+			<div id="comment-form" class="col-md-8 offset-md-2 form-spacing">
 				{{ Form::open(['route' => ['comments.store' , $post->id ] , 'method' => 'POST']) }}
 				
 				<div class="row">

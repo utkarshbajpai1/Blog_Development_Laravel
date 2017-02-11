@@ -28,8 +28,12 @@ Route::group(['middleware' => ['web']],function(){
 */
 
 	//comment
-	Route::post('comment/{post_id}' , [ 'uses' => 'CommentsController@store' , 'as' => 'comments.store' ]);
-
+	Route::post('comments/{post_id}' , [ 'uses' => 'CommentsController@store' , 'as' => 'comments.store' ]);
+	Route::get('comments/{id}/edit' , [ 'uses' => 'CommentsController@edit' , 'as' => 'comments.edit' ]);
+	Route::put('comments/{id}' , [ 'uses' => 'CommentsController@update' , 'as' => 'comments.update' ]);
+	Route::delete('comments/{id}/delete' , [ 'uses' => 'CommentsController@delete' , 'as' => 'comments.delete' ]);
+		
+	
 	//slug 
 	Route::get('blog/{slug}' , ['uses' => 'BlogController@getSingle' , 'as' => 'blog.single'])->where('slug' , '[\w\d/-\_]+');
 
@@ -42,5 +46,6 @@ Route::group(['middleware' => ['web']],function(){
 	Route::resource('/posts', 'PostController');
 
 	// eq.= route::get('posts.create' , 'PostController@createposts');
+
 });
 
