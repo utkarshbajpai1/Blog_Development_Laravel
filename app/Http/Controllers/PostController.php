@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use Session;
+use Image;
+use Storage;
 
 class PostController extends Controller
 {
@@ -45,8 +47,9 @@ class PostController extends Controller
     {
         $this->validate($request , array(
             'title' => 'required|max:255',
-            'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
+            'slug' => 'required|alpha_dash|max:255|unique:posts,slug',
             'body' => 'required',
+            'featured_image' => 'sometimes|image',
 
 
             ));
@@ -56,6 +59,15 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->slug = $request->slug;
 
+        if($request->hasFile('featured_image')){
+
+                $image = $request->file('featured_image');
+                $filename = time() . $image->getClientOriginalExtension();
+                $location = public_path('images/' . $filename);
+                Image::make($image)->resize(400 , 400)->save($location);
+
+                $post->image = $filename;
+        }
 
         $post->save();
 
@@ -101,7 +113,8 @@ class PostController extends Controller
 
         $post = Post::find($id);
 
-        if($request->input('slug') == $post->slug) 
+/*
+        if($request->input('slug') == $post->slug)  // checking whether the slug is unique
         {
 
             $this->validate($request , array(
@@ -110,18 +123,35 @@ class PostController extends Controller
             ));
 
         } else{
-
+              }  
+*/
             $this->validate($request , array(
             'title' => 'required|max:255',
-            'slug' => 'required|alpha_dash|min:5|max:255|unique:posts,slug',
-            'body' => 'required'
+            'slug' => "required|alpha_dash|min:5|max:255|unique:posts,slug,$id",
+            'body' => 'required',
+            'featured_image' => 'image'
             ));
-        }  
+      
         
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->slug = $request->input('slug');
         $post->body = $request->input('body');
+
+        if($request->hasFile('featured_image')){
+
+                $image = $request->file('featured_image');
+                $filename = time() . $image->getClientOriginalExtension();
+                $location = public_path('images/' . $filename);
+                Image::make($image)->resize(400 , 400)->save($location);
+                $oldFilename = $post->image;
+
+                //update
+                $post->image = $filename;
+                //delete the oldFile
+                Storage::delete($oldFilename);
+        }
+
 
         $post->save();
 

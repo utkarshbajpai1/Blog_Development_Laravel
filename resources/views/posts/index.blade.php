@@ -29,7 +29,7 @@
 						<tr>
 							<th>{{$post->id}}</th>
 							<td>{{$post->title}}</td>
-							<td>{{$post->body}}</td>
+							<td>{{ strip_tags($post->body) }}</td>
 							<td>{{$post->Created_at}}</td>
 							<td><a href="{{route('posts.show' , $post->id)}}" class="btn btn-default">View</a><a href="{{route('posts.edit' , $post->id)}}" class="btn btn-default">Edit</a></td>
 

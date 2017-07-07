@@ -24,7 +24,7 @@
 
                 <div class="post">
                    <h3>{{ $post->title }}</h3>
-                   <p>{{ $post->body }}</p>
+                   <p>{{ strip_tags($post->body) }}</p>
                    <a href="{{ url('blog/' . $post->slug) }}" class="btn btn-primary">Read More</a> 
                 </div>
 
